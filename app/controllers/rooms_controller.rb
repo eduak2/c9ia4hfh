@@ -16,6 +16,14 @@ class RoomsController < ApplicationController
     end
   end
 
+  def edit
+    begin
+      @room = Room.find(params[:id])
+    rescue => e 
+      redirect_to index_path, flash: { alert: "The room has not been found" }
+    end
+  end
+
   protected
     def room_params
       params.require(:room).permit(:title, :description, :beds, :guests, :image_url)
